@@ -94,7 +94,7 @@ We need a space of 10 chars to write "/etc/flag" (including /0).\
 So:\
 ![AltText](https://i.gyazo.com/fcf218269f752172bb71ffd680711924.png)
 
-We, of course, need a readable and writeable area and as we can see, memory has that permission between 0x0804bf00 and 0x0804c048.\
+We need a readable and writeable area and as we can see, memory has that permission between 0x0804bf00 and 0x0804c048.\
 We want to choose a segment that causes less damage possible, .data for example, it is big enough to store our string.\
 
 Notice that even if we could write everywhere in that memory address, putting our string in the .got, for example, could broke every function calls.
@@ -143,7 +143,7 @@ The first mov will put in ebx the content of ecx\
 The second mov will put "/etc" in the area_addr\
 ![AltText](https://i.gyazo.com/fa2a3f5c0ea8030a20eabcd47903378a.png)
 
-Then, the ret will take out the pop gadget, and the same will happen, until the string
+Then, the ret will take out the pop gadget, and will repeat what we just saw, until the string
 "/etc/flag" is completely written.
 
 ---
