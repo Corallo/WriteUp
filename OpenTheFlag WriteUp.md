@@ -33,8 +33,6 @@ A fgets is here, probably this the vulnerability.
 iShouldNotBeHere:
 
 ![AltText](https://i.gyazo.com/6d394616a3fecd742f950a56a4d940be.png)
-![AltText](https://i.gyazo.com/bc5b11ba0c5a7d0855fae6e74989efaf.png) //Kill me
-![AltText](https://i.gyazo.com/9033f77e80aeec5447f535298a3894b6.png)
 
 This is also interesting, as we can see it:
 1) Print stuff 
@@ -42,6 +40,8 @@ This is also interesting, as we can see it:
 3) Open  file
 4) read from the file
 5) print the content of the file.
+
+![AltText](https://i.gyazo.com/9033f77e80aeec5447f535298a3894b6.png)
 
 So this is probably our way to win, we just need to give to that function in a string the path of the flag.
 
