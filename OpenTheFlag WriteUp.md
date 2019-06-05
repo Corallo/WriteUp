@@ -61,7 +61,8 @@ So, what we got from our analysis?
 
 ## Step 2: Think how to expoloit 
 
-The hint told us that the flag is in "/etc/flag"
+The hint told us that the flag is in "/etc/flag".
+
 The main problem here is "How we produce that string?"
 
 First, let's check if it is already there:
