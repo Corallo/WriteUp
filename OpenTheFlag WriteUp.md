@@ -70,7 +70,8 @@ First, let's check if it is already there:
 ![AltText](https://i.gyazo.com/40a1a6b4c422283273bcf7a3f18cc67e.png)
 
 Sad, so we need to craft it.
-NOTE: You **CAN NOT** simply write it into the stack since the stack address CHANGE every execution.
+
+NOTE: You **CAN NOT** simply write it into the stack since the stack address **CHANGE** every execution.
 
 Here is where our gadgets come handy:
 
