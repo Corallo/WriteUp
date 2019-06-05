@@ -57,41 +57,32 @@ So, what we got from our analysis?
 
 ## Step 2: Think how to expoloit 
 
-The hint told us that the flag is in "/etc/flag".
+The hint told us that the flag is in "/etc/flag".\
+The main problem here is "How can we produce that string?"\
 
-The main problem here is "How can we produce that string?"
-
-First, let's check if it is already there:
-
+First, let's check if it is already there:\
 ![AltText](https://i.gyazo.com/40a1a6b4c422283273bcf7a3f18cc67e.png)
 
-Sad, so we need to craft it.
-
+Sad, so we need to craft it.\
 NOTE: You **CAN NOT** simply write it into the stack since the stack address **CHANGE** every execution.
 
 Here is where our gadgets come handy:
 
 ![AltText](https://i.gyazo.com/fa11cafb82928a534247374dbb78b3d8.png)
 
-The red one, move into edi and ecx two elements of the stack.
-
-The yellow one, mov ebx into the memory address of edi.
-
+The red one, move into edi and ecx two elements of the stack.\
+The yellow one, mov ebx into the memory address of edi.\
 So we need something more, we can't just use those 2 gadgets, to write what we want. (since we can't control ebx right now).
 
 
-We need to do a deeper search to see if we find how to fix this problem
-
-With ROPgadget, we can see all the possible gadgets, and we can filter them with a grep:
-
+We need to do a deeper search to see if we find how to fix this problem\
+With ROPgadget, we can see all the possible gadgets, and we can filter them with a grep:\
 ![AltText](https://i.gyazo.com/8bf6e2b70c0f48b401ff4d88814d94ed.png)
 
-Here we go. 
-
-A nice mov ebx, ecx
+Here we go.\
+A nice mov ebx, ecx\
 
 If we put together our gadgets we get:
-
 ```
 pop edi
 pop ecx
@@ -102,34 +93,26 @@ mov [edi], ebx
 Moving in edi the address where we want to write, and in ebx what to write, we can basically write everywhere (more or less).
 
 We are almost done.
+Last question: "Where do I write it?"\
+We need a space of 10 chars to write "/etc/flag" (including /0).\
 
-Last question: "Where do I write it?"
-
-We need a space of 10 chars to write "/etc/flag" (including /0).
-
-So:
-
+So:\
 ![AltText](https://i.gyazo.com/fcf218269f752172bb71ffd680711924.png)
 
-We, of course, need a readable and writeable area and as we can see, memory has that permission between 0x0804bf00 and 0x0804c048.
-
-We want to choose a segment that causes less damage possible, .data for example, it is big enough to store our string.
+We, of course, need a readable and writeable area and as we can see, memory has that permission between 0x0804bf00 and 0x0804c048.\
+We want to choose a segment that causes less damage possible, .data for example, it is big enough to store our string.\
 
 Notice that even if we could write everywhere in that memory address, putting our string in the .got, for example, could broke every function calls.
 
-Good, the plan is done.
+Good, the plan is done.\
+We know what to do, what to write, where to write, and how to write it.\
 
-We know what to do, what to write, where to write, and how to write it.
-
-Last info to retrive:
-
+Last info to retrive:\
 ![AltText](https://i.gyazo.com/83050768edd4bc60b7ff55d249da7ca3.png)
 
 ## Last step:
-Let's make our exploit:
-
-The payload will be:
-
+Let's make our exploit:\
+The payload will be:\
 ```
 PADDING = "A"*44;
 pop = address of the pop pop gadget we found
@@ -146,27 +129,23 @@ If you understood everything probably will be useless to read from now on, other
 
 ## How the exploit work:
 
-We prepare the stack as follow:
-
+We prepare the stack as follow:\
 ![AltText](https://i.gyazo.com/77ea80446d763dad4bc6a43741325208.png)
 
 ---
 
 The RET of the pwnme function will take the first address from the stack, and will continue the execution from that point.\
-
 ![AltText](https://i.gyazo.com/d92b4fabb991f46d1461b0e31214880c.png)\
 The first gadget will move into the two registers the area_addr and the "/etc" string.\
 then the return, will take again the first address from the stack and will continue the execution. \
 NOTE: The stack, lost its first 3 elements because of the ret and the 2 pop.\
 
 ---
-The first mov will put in ebx the content of ecx
-
+The first mov will put in ebx the content of ecx\
 ![AltText](https://i.gyazo.com/81648db73a54ad6c873987ab1eec018a.png)
 
 ---
-The second mov will put "/etc" in the area_addr
-
+The second mov will put "/etc" in the area_addr\
 ![AltText](https://i.gyazo.com/fa2a3f5c0ea8030a20eabcd47903378a.png)
 
 Then, the ret will take out the pop gadget, and the same will happen, until the string
