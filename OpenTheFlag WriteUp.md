@@ -85,11 +85,13 @@ So we need something more, we can't just use those 2 gadgets, to write what we w
 
 
 We need to do a deeper search to see if we find how to fix this problem
-With ROPgadget, we can see all the possible gadgets, and filter them with a grep:
+
+With ROPgadget, we can see all the possible gadgets, and we can filter them with a grep:
 
 ![AltText](https://i.gyazo.com/8bf6e2b70c0f48b401ff4d88814d94ed.png)
 
 Here we go. 
+
 A nice mov ebx, ecx
 
 If we put together our gadgets we get:
@@ -114,11 +116,13 @@ So:
 ![AltText](https://i.gyazo.com/fcf218269f752172bb71ffd680711924.png)
 
 We, of course, need a readable and writeable area and as we can see, memory has that permission between 0x0804bf00 and 0x0804c048.
+
 We want to choose a segment that causes less damage possible, .data for example, it is big enough to store our string.
 
 Notice that even if we could write everywhere in that memory address, putting our string in the .got, for example, could broke every function calls.
 
 Good, the plan is done.
+
 We know what to do, what to write, where to write, and how to write it.
 
 Last info to retrive:
@@ -129,6 +133,7 @@ Last info to retrive:
 Let's make our exploit:
 
 The payload will be:
+
 ```
 PADDING = "A"*44;
 pop = address of the pop pop gadget we found
@@ -136,14 +141,15 @@ area = .data address
 mov1 = addres of mov ebx, ecx gadget
 mov2 = addres of mov [edi], ebx gadget
 win = addres of the iShouldNotBeHere
-```
-PADDING + pop + area + "/etc" + mov1 + mov2 + pop + (area+4) + "/fla" + mov1 + mov2 + pop + (area+8) + "g\x00\x00\x00" + mov1 +mov2 + win + "AAAA" + area  
 
+PADDING + pop + area + "/etc" + mov1 + mov2 + pop + (area+4) + "/fla" + mov1 + mov2 + pop + (area+8) + "g\x00\x00\x00" + mov1 +mov2 + win + "AAAA" + area  
+```
 
 
 If you understood everything probably will be useless to read from now on, otherwise, if you want to understand better how the rop chain work, try to read the following part:
 
-How the exploit work:
+## How the exploit work:
+
 We prepare the stack as follow:
 
 ![AltText](https://i.gyazo.com/77ea80446d763dad4bc6a43741325208.png)
