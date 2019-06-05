@@ -2,7 +2,7 @@ OpenTheFlag WriteUp
 
 XxcoralloxX
 
-## Step 1 Analyze the binary
+## Step 1: Analyze the binary
 
 Here we go:
 
@@ -56,10 +56,10 @@ This function has no sense, but we can notice that there are 2 gadgets.
 So, what we got from our analysis?
 1) We have a possible buffer overflow in pwnme
 2) We have a function that wants a string as parameter, and it print the content of a file with the name of that string
-3) We have some gadget
+3) We have some gadgets
 
 
-## Step 2 Think how to expoloit 
+## Step 2: Think how to expoloit 
 
 The hint told us that the flag is in "/etc/flag"
 The main problem here is "How we produce that string?"
