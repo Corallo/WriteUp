@@ -63,7 +63,7 @@ So, what we got from our analysis?
 
 The hint told us that the flag is in "/etc/flag".
 
-The main problem here is "How we produce that string?"
+The main problem here is "How can we produce that string?"
 
 First, let's check if it is already there:
 
