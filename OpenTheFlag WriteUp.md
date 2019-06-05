@@ -78,10 +78,13 @@ Here is where our gadgets come handy:
 ![AltText](https://i.gyazo.com/fa11cafb82928a534247374dbb78b3d8.png)
 
 The red one, move into edi and ecx two elements of the stack.
+
 The yellow one, mov ebx into the memory address of edi.
+
 So we need something more, we can't just use those 2 gadgets, to write what we want. (since we can't control ebx right now).
 
-So, we could do a deeper search to see if we find how to fix this problem
+
+We need to do a deeper search to see if we find how to fix this problem
 With ROPgadget, we can see all the possible gadgets, and filter them with a grep:
 
 ![AltText](https://i.gyazo.com/8bf6e2b70c0f48b401ff4d88814d94ed.png)
@@ -91,14 +94,17 @@ A nice mov ebx, ecx
 
 If we put together our gadgets we get:
 
+```
 pop edi
 pop ecx
 mov ebc, ecx
 mov [edi], ebx
+```
 
-moving in edi the address where we want to write, and in ebx what to write, we can write basically everywhere (more or less).
+Moving in edi the address where we want to write, and in ebx what to write, we can basically write everywhere (more or less).
 
 We are almost done.
+
 Last question: "Where do I write it?"
 
 We need a space of 10 chars to write "/etc/flag" (including /0).
