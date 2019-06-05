@@ -46,6 +46,7 @@ This is also interesting, as we can see it:
 So this is probably our way to win, we just need to give to that function in a string the path of the flag.
 
 Last thing to check
+
 stuff:
 
 ![AltText](https://i.gyazo.com/fa11cafb82928a534247374dbb78b3d8.png)
