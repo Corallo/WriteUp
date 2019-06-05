@@ -99,7 +99,7 @@ If we put together our gadgets we get:
 ```
 pop edi
 pop ecx
-mov ebc, ecx
+mov ebx, ecx
 mov [edi], ebx
 ```
 
