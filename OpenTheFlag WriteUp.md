@@ -16,14 +16,12 @@ Few functions, good, let's look them one by one
 
 main:
 
-![AltText](https://i.gyazo.com/2a037008d9eb4d64f77c88b9fd5b6599.png)
-
+![AltText](https://i.gyazo.com/2a037008d9eb4d64f77c88b9fd5b6599.png)\
 Nothing in particular to notice, so we should move our attention on the function pwnme
 
 pwnme:
 
-![AltText](https://i.gyazo.com/2e8bf518da3e1c08d84ccda8da90d502.png)
-
+![AltText](https://i.gyazo.com/2e8bf518da3e1c08d84ccda8da90d502.png)\
 A fgets is here, probably this the vulnerability.
 
 iShouldNotBeHere:
@@ -35,18 +33,15 @@ This is also interesting, as we can see it:
 2) check if the len of a string passed as argumetn is > 4 otherwise it exit
 3) Open  file
 4) read from the file
-5) print the content of the file.
-
-![AltText](https://i.gyazo.com/9033f77e80aeec5447f535298a3894b6.png)
-
-So this is probably our way to win, we just need to give to that function in a string the path of the flag.
+5) print the content of the file.\
+![AltText](https://i.gyazo.com/9033f77e80aeec5447f535298a3894b6.png)\
+So this is probably our way to win, we just need to give to that function a string with the path of the flag.
 
 Last thing to check
 
 stuff:
 
-![AltText](https://i.gyazo.com/fa11cafb82928a534247374dbb78b3d8.png)
-
+![AltText](https://i.gyazo.com/fa11cafb82928a534247374dbb78b3d8.png)\
 This function has no sense, but we can notice that there are 2 gadgets.
 
 So, what we got from our analysis?
