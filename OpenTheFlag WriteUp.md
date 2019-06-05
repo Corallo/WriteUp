@@ -21,11 +21,13 @@ Few functions, good, let's look them one by one
 main:
 
 ![AltText](https://i.gyazo.com/2a037008d9eb4d64f77c88b9fd5b6599.png)
+
 Nothing in particular to notice, so we should move our attention on the function pwnme
 
 pwnme:
 
 ![AltText](https://i.gyazo.com/2e8bf518da3e1c08d84ccda8da90d502.png)
+
 A fgets is here, probably this our the vulnerability.
 
 iShouldNotBeHere:
