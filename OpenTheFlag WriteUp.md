@@ -6,16 +6,12 @@ XxcoralloxX
 
 Here we go:
 
-With checksec on peda we can see what kind of protection are on:
-
-![AltText](https://i.gyazo.com/714cd40ebff5d544322221ac06f71707.png)
-
+With checksec on peda we can see what kind of protection are on:\
+![AltText](https://i.gyazo.com/714cd40ebff5d544322221ac06f71707.png)\
 NX is on, so probably this won't allow us to do shellcoding.
 
-Let's see what we have:
-
-![AltText](https://i.gyazo.com/205f20c3df6300e9269b0727445d7d34.png)
-
+Let's see what we have:\
+![AltText](https://i.gyazo.com/205f20c3df6300e9269b0727445d7d34.png)\
 Few functions, good, let's look them one by one
 
 main:
@@ -154,18 +150,21 @@ We prepare the stack as follow:
 
 ![AltText](https://i.gyazo.com/77ea80446d763dad4bc6a43741325208.png)
 
-The RET of the pwnme function will take the first address from the stack, and will continue the execution from that point.
+---
 
-![AltText](https://i.gyazo.com/d92b4fabb991f46d1461b0e31214880c.png)
+The RET of the pwnme function will take the first address from the stack, and will continue the execution from that point.\
 
-The first gadget will move into the two registers the area_addr and the "/etc" string.
-then the return, will take again the first address from the stack and will continue the execution. 
-NOTE: The stack, lost its first 3 elements because of the ret and the 2 pop.
+![AltText](https://i.gyazo.com/d92b4fabb991f46d1461b0e31214880c.png)\
+The first gadget will move into the two registers the area_addr and the "/etc" string.\
+then the return, will take again the first address from the stack and will continue the execution. \
+NOTE: The stack, lost its first 3 elements because of the ret and the 2 pop.\
 
+---
 The first mov will put in ebx the content of ecx
 
 ![AltText](https://i.gyazo.com/81648db73a54ad6c873987ab1eec018a.png)
 
+---
 The second mov will put "/etc" in the area_addr
 
 ![AltText](https://i.gyazo.com/fa2a3f5c0ea8030a20eabcd47903378a.png)
@@ -173,13 +172,12 @@ The second mov will put "/etc" in the area_addr
 Then, the ret will take out the pop gadget, and the same will happen, until the string
 "/etc/flag" is completely written.
 
+---
 At this point in the stack there will be only 
 
-![AltText](https://i.gyazo.com/56efcea57c8bc6fc09b12dcb3482f6db.png)
+![AltText](https://i.gyazo.com/56efcea57c8bc6fc09b12dcb3482f6db.png)\
+Win_function (iShouldNotBeHere) will be executed, with "AAAA" as return addres and area_addr as argument.\
+iShouldNotBeHere open the file, read the flag, and write it as output.\
 
-Win_function (iShouldNotBeHere) will be executed, with "AAAA" as return addres and area_addr as argument.
-
-iShouldNotBeHere open the file, read the flag, and write it as output.
-
-Hope this will be helpful. 
+Hope this will be helpful. \
 Good luck!
