@@ -102,6 +102,7 @@ We are almost done.
 Last question: "Where do I write it?"
 
 We need a space of 10 chars to write "/etc/flag" (including /0).
+
 So:
 
 ![AltText](https://i.gyazo.com/fcf218269f752172bb71ffd680711924.png)
