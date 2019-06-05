@@ -28,7 +28,7 @@ pwnme:
 
 ![AltText](https://i.gyazo.com/2e8bf518da3e1c08d84ccda8da90d502.png)
 
-A fgets is here, probably this our the vulnerability.
+A fgets is here, probably this the vulnerability.
 
 iShouldNotBeHere:
 
